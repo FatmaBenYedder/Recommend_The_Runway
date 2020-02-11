@@ -38,4 +38,10 @@ def parse_ht(ht):
 
 df['height'] = df['height'].astype(str)
 df['height'] = df['height'].str.split('"')
+df['height'] = df['height'].apply(lambda x:x[0])
 df['height'] = df['height'].apply(lambda x:parse_ht(x))
+
+#### change weight column to drop 'lbs'
+df['weight'] = df['weight'].str.split('\D+')
+df['weight'] = df['weight'].apply(lambda x:x[0])
+df['weight'] = df['weight'].astype('int32')
