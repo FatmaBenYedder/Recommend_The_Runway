@@ -45,3 +45,25 @@ df['height'] = df['height'].apply(lambda x:parse_ht(x))
 df['weight'] = df['weight'].str.split('\D+')
 df['weight'] = df['weight'].apply(lambda x:x[0])
 df['weight'] = df['weight'].astype('int32')
+
+### remove outlier from "rented_for" columns
+condition2 = df['rented_for'] != 'party: cocktail'
+df = df[condition2]
+
+
+##regroup categories (reduce from 68 to 7)
+recat1 = df.replace(['dress', 'sheath', 'shirtdress', 'shift', 'ballgown', 'frock', 'kaftan', 'caftan', 'gown', 'print'], 'dresses')
+recat2 = recat1.replace(['romper', 'jumpsuit', 'overalls', 'combo', 'suit'], 'jumpsuits')
+recat3 = recat2.replace(['jogger', 'trousers', 'tight', 'jeans', 'sweatpants', 'leggings', 'pants', 'culottes', 'legging', 'pant', 'culotte', 'trouser'], 'pants')
+recat4 = recat3.replace(['sweater', 'duster', 'cardigan', 'sweatshirt', 'pullover', 'turtleneck', 'hoodie', 'sweatershirt'], 'sweaters')
+recat5 = recat4.replace(['jacket', 'coat', 'trench', 'cape', 'bomber', 'blazer', 'vest', 'poncho', 'down', 'parka', 'peacoat', 'overcoat'], 'outerwear')
+recat6 = recat5.replace(['top,', 'shirt', 'blouse', 'tank', 'tunic', 'knit', 'tee', 'henley', 'blouson', 't-shirt', 'kimono', 'cami', 'crewneck', 'buttondown', 'for'], 'tops')
+recat7 = recat6.replace(['mini', 'skirt', 'maxi','midi', 'skirts', 'skort'], 'skirts')
+recat8 = recat7.replace(['top'], 'tops')
+
+##rename recategorized df variable
+df = recat8
+
+#### split df into user_df and item_df
+user_df = df[['user_id', 'bust_size', 'cup_size', 'body_type', 'weight', 'height', 'age']].copy()
+item_df = df[['item_id', 'size', 'fit', 'rating', 'rented_for', 'category']].copy()
