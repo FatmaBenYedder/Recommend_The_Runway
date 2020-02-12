@@ -25,6 +25,32 @@ df['bust_size'] = df['bust_size'].str.split('(\D+)')
 df['cup_size'] = df.bust_size.str[1]
 df['bust_size'] = df.bust_size.str[0]
 
+### change height from feet' inches" to inches (float)
+condition = df['height'] != 'nan'
+df = df[condition]
+
+def parse_ht(ht):
+    # format: 7' 0.0"
+    ht_ = ht.split("' ")
+    ft_ = float(ht_[0])
+    in_ = float(ht_[1].replace("\"",""))
+    return (12*ft_) + in_
+
+df['height'] = df['height'].astype(str)
+df['height'] = df['height'].str.split('"')
+df['height'] = df['height'].apply(lambda x:x[0])
+df['height'] = df['height'].apply(lambda x:parse_ht(x))
+
+#### change weight column to drop 'lbs'
+df['weight'] = df['weight'].str.split('\D+')
+df['weight'] = df['weight'].apply(lambda x:x[0])
+df['weight'] = df['weight'].astype('int32')
+
+### remove outlier from "rented_for" columns
+condition2 = df['rented_for'] != 'party: cocktail'
+df = df[condition2]
+
+
 ##regroup categories (reduce from 68 to 7)
 recat1 = df.replace(['dress', 'sheath', 'shirtdress', 'shift', 'ballgown', 'frock', 'kaftan', 'caftan', 'gown', 'print'], 'dresses')
 recat2 = recat1.replace(['romper', 'jumpsuit', 'overalls', 'combo', 'suit'], 'jumpsuits')
@@ -37,3 +63,18 @@ recat8 = recat7.replace(['top'], 'tops')
 
 ##rename recategorized df variable
 df = recat8
+
+#replace 'fit' with 'medium'
+df = df.replace(['fit'], 'medium')
+
+#### split df into user_df and item_df
+user_df = df[['user_id', 'bust_size', 'cup_size', 'body_type', 'weight', 'height', 'age']].copy()
+item_df = df[['item_id', 'size', 'fit', 'rating', 'rented_for', 'category']].copy()
+
+###one hot encode user df
+one_hot_users = pd.get_dummies(user_df)
+one_hot_users.head()
+
+###one hot encode item df
+one_hot_items = pd.get_dummies(item_df)
+one_hot_items.head()
