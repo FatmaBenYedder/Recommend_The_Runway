@@ -63,9 +63,6 @@ recat8 = recat7.replace(['top'], 'tops')
 ##rename recategorized df variable
 df = recat8
 
-#replace 'fit' with 'medium'
-df = df.replace(['fit'], 'medium')
-
 #### split df into user_df and item_df
 user_df = df[['user_id', 'bust_size', 'cup_size', 'body_type', 'weight', 'height', 'age']].copy()
 item_df = df[['item_id', 'size', 'fit', 'rating', 'rented_for', 'category']].copy()
