@@ -130,5 +130,6 @@ dmypy.json
 
 #ignore JSON
 *.json
+*.csv
 config.py
 .DS_Store
