@@ -50,7 +50,6 @@ df['weight'] = df['weight'].astype('int32')
 condition2 = df['rented_for'] != 'party: cocktail'
 df = df[condition2]
 
-
 ##regroup categories (reduce from 68 to 7)
 recat1 = df.replace(['dress', 'sheath', 'shirtdress', 'shift', 'ballgown', 'frock', 'kaftan', 'caftan', 'gown', 'print'], 'dresses')
 recat2 = recat1.replace(['romper', 'jumpsuit', 'overalls', 'combo', 'suit'], 'jumpsuits')
