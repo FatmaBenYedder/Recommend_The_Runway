@@ -67,3 +67,72 @@ df = recat8
 #### split df into user_df and item_df
 user_df = df[['user_id', 'bust_size', 'cup_size', 'body_type', 'weight', 'height', 'age']].copy()
 item_df = df[['item_id', 'size', 'fit', 'rating', 'rented_for', 'category']].copy()
+
+
+### import surprise libraries
+from surprise import SVD
+from surprise import Dataset
+from surprise.model_selection import cross_validate
+from surprise import Reader
+from surprise.model_selection import train_test_split
+from surprise import accuracy
+from surprise import KNNBasic
+from surprise import Dataset
+from surprise.model_selection import GridSearchCV
+
+
+### create Dataset
+# A reader is still needed but only the rating_scale param is requiered.
+reader = Reader(rating_scale=(2.0, 10.0))
+
+# The columns must correspond to user id, item id and ratings (in that order).
+data = Dataset.load_from_df(ratings_df, reader)
+
+# We'll use the famous SVD algorithm.
+algo = SVD()
+
+# Run 5-fold cross-validation and print results
+cross_validate(algo, data, measures=['RMSE', 'MAE'], cv=5, verbose=True)
+
+# sample random trainset and testset
+# test set is made of 25% of the ratings.
+trainset, testset = train_test_split(data, test_size=.25)
+
+# We'll use the famous SVD algorithm.
+algo = SVD()
+
+# Train the algorithm on the trainset, and predict ratings for the testset
+algo.fit(trainset)
+predictions = algo.test(testset)
+
+# Then compute RMSE
+accuracy.rmse(predictions)
+
+###one hot encode item df
+one_hot_items = pd.get_dummies(item_df)
+one_hot_items.head()
+
+### trim Dataset
+df['item_count'] = df.groupby(['item_id'])['item_id'].transform('count')
+condition3 = df['item_count'] < 20
+small_df = df[condition3]
+### then get dummies for that Dataset
+
+###cosine similarity
+
+###other option -- limit to dresses only
+dress_condition = ((df['category'] == 'dress') | (df['category'] == 'sheath') | (df['category'] == 'shirtdress') |
+(df['category'] == 'shift') | (df['category'] == 'ballgown') | (df['category'] == 'frock') |
+(df['category'] == 'kaftan') | (df['category'] == 'caftan') | (df['category'] == 'gown') | (df['category'] == 'print'))
+
+dress_df = df[dress_condition]
+
+dress_item_df = dress_df[['item_id', 'rating', 'rented_for', 'category']].copy()
+
+dress_ratings_df = dress_df[['user_id', 'item_id', 'rating']]
+
+###one hot encode item df
+dress_items_dummies = pd.get_dummies(dress_item_df)
+dress_items_dummies.head()
+
+items_df_dress = dress_items_dummies.groupby(['item_id']).mean()
