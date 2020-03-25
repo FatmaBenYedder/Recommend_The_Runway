@@ -1,2 +1,17 @@
-# mod_6_project
-Rent the Runway recs
+Rent the Runway Recommendation Engine
+-
+
+Objective
+-
+
+Data Processing
+-
+
+EDA
+-
+
+Recommendation Engine
+-
+
+Summary
+-
