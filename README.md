@@ -12,6 +12,13 @@ Objective
 
 Data Processing
 -
+- Drop NAN values, remove strings from weight and convert to integer, remove spaces from column names, drop extraneous columns
+
+- Create dummy variables for categorical columns
+
+- Create separate dataframes for user data features and item features
+
+
 
 EDA
 -
