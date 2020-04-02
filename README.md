@@ -19,10 +19,19 @@ Data Processing
 EDA
 -
 - Add category_count
-- Add ratings_count
-- Add dress_correlation
-- Add user_correlation
 
+<img src = "images/category_count.png">
+
+- Add ratings_count
+
+<img src = "images/ratings_count.png">
+
+- Add dress_correlation
+<img src = "images/dress_correlation.png">
+
+- Add user_correlation
+<img src = "images/user_correlation.png">
+ 
 K-Nearest Neighbors Baseline Model
 -
 - For our baseline model, we limited our study to dresses only where the item count was < 20
@@ -40,4 +49,4 @@ Rating Prediction: Singular Value Decomposition
 
 Content-Based Recommendation Engine
 -
-
+- Our content-based recommender used cosine similarity based on the average rating for a dress. Here we also used MinMaxScaler to ensure a more normal distribution.
