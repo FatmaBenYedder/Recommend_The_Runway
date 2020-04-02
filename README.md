@@ -14,7 +14,7 @@ Data Processing
 -
 - Drop NAN values, remove strings from weight and convert to integer, remove spaces from column names, drop extraneous columns
 
-- Create dummy variables for categorical columns
+- Engineer generalized categories for item types (from 68 categories to 7)
 
 - Create separate dataframes for user data features and item features
 
