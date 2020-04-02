@@ -26,8 +26,8 @@ EDA
 
 <img src = "images/ratings_count.png">
 
-- Add dress_correlation
-<img src = "images/dress_correlation.png">
+- Add item_correlation
+<img src = "images/item_correlation.png">
 
 - Add user_correlation
 <img src = "images/user_correlation.png">
