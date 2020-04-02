@@ -18,18 +18,16 @@ Data Processing
 
 EDA
 -
-- Add category_count
-
+- The most common item type in the dataset was dresses.
 <img src = "images/category_count.png">
 
-- Add ratings_count
-
+- Item ratings tended to be high. Users were given the option to rate items on a 1-5 scale, though data was recorded on a 1-10 scale, hence the binning around even numbers.
 <img src = "images/ratings_count.png">
 
-- Add item_correlation
+- No significant correlation was found between items
 <img src = "images/item_correlation.png">
 
-- Add user_correlation
+- No significant correlation was found between users
 <img src = "images/user_correlation.png">
  
 K-Nearest Neighbors Baseline Model
