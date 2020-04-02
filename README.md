@@ -13,21 +13,30 @@ Objective
 Data Processing
 -
 - Drop NAN values, remove strings from weight and convert to integer, remove spaces from column names, drop extraneous columns
-
 - Engineer generalized categories for item types (from 68 categories to 7)
-
 - Create separate dataframes for user data features and item features
-
-
 
 EDA
 -
+- Add category_count
+- Add ratings_count
+- Add dress_correlation
+- Add user_correlation
 
 K-Nearest Neighbors Baseline Model
 -
+- For our baseline model, we limited our study to dresses only where the item count was < 20
+
+- Parameters: pearson, user_based
+- Result: RMSE 1.48
 
 Rating Prediction: Singular Value Decomposition
 -
+- To predict an item rating, we limited our model to analyze dresses only, where the user count was > 15, and the item count was > 15. This limited the study to 1400 unique items and 200 unique users, about 3800 ratings total.
+
+- Result: RMSE 1.30
+
+- Next, we used MinMaxScalar to improve our SVD Model with hyperparameters tuned by GridSearchCV. Rating predictions were more normally distributed, though RMSE did not improve
 
 Content-Based Recommendation Engine
 -
